@@ -176,3 +176,17 @@ def predict_url(url):
 # Example prediction
 url = input("Enter the url:")
 print(f"The URL is: {predict_url(url)}")
+
+# OUTPUT
+
+![URL_SCANNER_1](https://github.com/user-attachments/assets/13ae2dfe-54dd-4ee0-af47-409c09ce1e1a)
+
+![OUTPUT1](https://github.com/user-attachments/assets/62ec5ea1-b26d-4b30-83a2-c112449c9257)
+
+![URL_SCANNER2](https://github.com/user-attachments/assets/884009bb-def3-4c6d-b5bb-bb303393bcce)
+
+![OUTPUT2](https://github.com/user-attachments/assets/9f0ff652-aaa8-43a9-9368-053c34fc10f6)
+
+
+
+
