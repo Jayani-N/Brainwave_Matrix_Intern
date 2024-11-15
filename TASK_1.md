@@ -1,30 +1,30 @@
 # ML model to classify urls bases on a generated csv file with a list of legit and phishing urls
-# Import the combined.csv file
+
 
 # phishing_urls.csv
 
-import requests
-import pandas as pd
-
-# Fetch URLs from OpenPhish (direct link)
-phishing_urls = []
-try:
-    response = requests.get("https://openphish.com/feed.txt")
-    if response.status_code == 200:
-        phishing_urls = response.text.splitlines()
-    else:
-        print("Failed to retrieve OpenPhish data.")
-except Exception as e:
-    print(f"Error fetching OpenPhish data: {e}")
-
-# Label all fetched URLs as phishing (Label: 1)
-phishing_data = {"URL": phishing_urls, "Label": [1] * len(phishing_urls)}
-df_phishing = pd.DataFrame(phishing_data)
-print(f"Phishing URLs collected: {len(df_phishing)}")
-
-# Save the DataFrame to a CSV file
-df_phishing.to_csv("phishing_urls.csv", index=False)
-print("Phishing URLs saved to phishing_urls.csv")
+    import requests
+    import pandas as pd
+    
+    # Fetch URLs from OpenPhish (direct link)
+    phishing_urls = []
+    try:
+        response = requests.get("https://openphish.com/feed.txt")
+        if response.status_code == 200:
+            phishing_urls = response.text.splitlines()
+        else:
+            print("Failed to retrieve OpenPhish data.")
+    except Exception as e:
+        print(f"Error fetching OpenPhish data: {e}")
+    
+    # Label all fetched URLs as phishing (Label: 1)
+    phishing_data = {"URL": phishing_urls, "Label": [1] * len(phishing_urls)}
+    df_phishing = pd.DataFrame(phishing_data)
+    print(f"Phishing URLs collected: {len(df_phishing)}")
+    
+    # Save the DataFrame to a CSV file
+    df_phishing.to_csv("phishing_urls.csv", index=False)
+    print("Phishing URLs saved to phishing_urls.csv")
 
 # legitimate_urls.csv
 
