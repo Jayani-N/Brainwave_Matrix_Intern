@@ -176,3 +176,6 @@ def predict_url(url):
 # Example prediction
 url = input("Enter the url:")
 print(f"The URL is: {predict_url(url)}")
+
+
+
