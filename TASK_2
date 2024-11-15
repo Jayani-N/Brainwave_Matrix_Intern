@@ -144,3 +144,10 @@ document.getElementById('password-form').addEventListener('submit', function(e) 
     });
 });
 
+# RUNNING THE app.py file, the output:
+
+
+
+
+
+
