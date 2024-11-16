@@ -144,7 +144,7 @@
         });
     });
 
-# RUNNING THE app.py file, the output:
+# RUNNING THE app.py FILE, THE OUTPUT:
 
 ![Screenshot 1](https://github.com/user-attachments/assets/9a85ae66-9026-4f37-9e0d-ab717f502066)
 
