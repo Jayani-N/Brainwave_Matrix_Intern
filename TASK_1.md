@@ -133,6 +133,90 @@
     # Run the application
     root.mainloop()
 
+
+# CLI TOOL:
+
+# phishing_checker.py
+
+
+    import requests
+    import pandas as pd
+    import re
+    import joblib
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.pipeline import Pipeline
+    from sklearn.base import BaseEstimator, TransformerMixin
+    import argparse
+    
+    class URLFeaturesExtractor(BaseEstimator, TransformerMixin):
+        def fit(self, X, y=None):
+            return self
+    
+        def transform(self, X, y=None):
+            return [self.url_features(url) for url in X]
+    
+        @staticmethod
+        def url_features(url):
+            return [
+                len(url),                                     # URL length
+                url.count("."),                               # Number of dots
+                url.count("-"),                               # Number of hyphens
+                url.count("@"),                               # Presence of @ symbol
+                url.count("//"),                              # Number of slashes
+                1 if "https" in url else 0,                   # Check for HTTPS
+                1 if re.search(r"(bit\.ly|t\.co|tinyurl)", url) else 0,  # Shortened URL
+                sum(1 for char in url if char.isdigit()),     # Number of digits
+                any(keyword in url.lower() for keyword in ["login", "verify", "account", "update", "bank"])  # Suspicious keywords
+            ]
+    
+    def load_model(model_path):
+        return joblib.load(model_path)
+    
+    def predict_url(model, url):
+        prediction = model.predict([url])[0]
+        return "Phishing" if prediction == 1 else "Legitimate"
+    
+    def main(url):
+        model = load_model("phishing_model.pkl")
+        result = predict_url(model, url)
+        print(f"The URL '{url}' is: {result}")
+    
+    if __name__ == "__main__":
+        parser = argparse.ArgumentParser(description="Check if a URL is phishing or legitimate.")
+        parser.add_argument("url", type=str, help="The URL to check")
+        args = parser.parse_args()
+        
+        main(args.url)
+
+# setup.py
+
+    from setuptools import setup
+    
+    setup(
+        name='phishing_checker',
+        version='0.1',
+        py_modules=['phishing_checker'],
+        install_requires=[
+            'requests',
+            'pandas',
+            'scikit-learn',
+            'joblib',
+        ],
+        entry_points={
+            'console_scripts': [
+                'phishing-checker=phishing_checker:main',
+            ],
+        },
+    )
+
+# INSTALLING AND USING THE TOOL:
+
+    pip install .
+
+    python phishing_checker.py "[URL]"
+
+
 # OUTPUT
 
 ![image](https://github.com/user-attachments/assets/61edfe1a-5a7e-4cf7-845d-48d6d8d18d5d)
@@ -141,6 +225,9 @@
 
 
 ![Screenshot 2024-11-27 181851](https://github.com/user-attachments/assets/30a71229-9c77-4bf2-983c-0a7c73b2ee2c)
+
+![Screenshot 2024-11-27 210516](https://github.com/user-attachments/assets/43d6182f-57ab-41bd-bb70-d116b75d0592)
+
 
 
 
